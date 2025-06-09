@@ -26,6 +26,12 @@
 ```gnuplot {cmd=true output="html"}
 set terminal svg
 
+set xrange [0:7]
+set yrange [-20:15]
+set title "関数のプロット"
+set xlabel "x"
+set ylabel "y"
+plot 2*x*x*sqrt(x)-5*x*x title "f1(x)", x/log(x) title "f2(x)"
 ```
 
 ## 3. 八王子の気温
@@ -46,6 +52,10 @@ set terminal svg
 set xdata time
 set timefmt '%Y/%m/%d'
 set xtics format "%m/%d"
+set title "八王子の気温(過去１年間)
+set ylabel "温度"
+set datafile separator comma
+plot "weather2025.csv" using 1:2  w l title "最高気温", "weather2025.csv" using 1:3  w l title "最高気温（平年）", "weather2025.csv" using 1:4  w l title "最低気温", "weather2025.csv" using 1:5  w l title "最低気温（平年）"
 
 ```
 
@@ -54,7 +64,7 @@ set xtics format "%m/%d"
 次の「みほん」の図と同じようになるように gnuplotの記述を追記せよ.
 
 ![誕生日の月別人数のグラフ](birthMonth.png)
-
+ 
 - データは `bm.txt` から取り出し，棒グラフにする
 - y軸の範囲は $0 \le y \le 16$とする
 - 棒グラフは水色(skyblue)で塗り潰し，棒の幅は 0.6 にする
@@ -66,6 +76,11 @@ set xtics format "%m/%d"
 ```gnuplot {cmd=true, output="html"}
 set terminal svg
 unset key
-
-
+set style fill solid
+set boxwidth 0.6
+set yrange [0:16]
+set grid
+set title "誕生日の月別人数"
+set ylabel "人" offset graph 0,0.5 rotate by 0
+plot "bm.txt" using 1:2:xtic(1) with boxes linecolor "skyblue"
 ```
